@@ -14,4 +14,12 @@ class Types::QueryType < Types::BaseObject
   def test_field(name:)
     "Hello World! #{name}"
   end
+
+  field :author, Types::AuthorType, null: true, description: "one author" do
+    argument :id, ID, required: true
+  end
+
+  def author(id:)
+    Author.where(id: id).first
+  end
 end
