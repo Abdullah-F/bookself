@@ -22,4 +22,10 @@ class Types::QueryType < Types::BaseObject
   def author(id:)
     Author.where(id: id).first
   end
+
+  field :authors, [Types::AuthorType], null: true, description: "authors"
+
+  def authors
+    Author.all
+  end
 end
