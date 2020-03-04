@@ -28,4 +28,15 @@ class Types::QueryType < Types::BaseObject
   def authors
     Author.all
   end
+
+  field :login, String, null:true, description: "Login a user" do
+    argument :email, String, required: true
+    argument :password, String, required: true
+  end
+
+  def login(email:, password:)
+    if user = User.find_by(email: email)&.authenticate(password)
+      user.sessions.create.key
+    end
+  end
 end
