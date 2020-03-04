@@ -39,4 +39,17 @@ class Types::QueryType < Types::BaseObject
       user.sessions.create.key
     end
   end
+
+  field :current_user, Types::UserType, null: true, description: "the current user"
+
+  def current_user
+    context[:current_user]
+  end
+
+  field :logout, Boolean, null: false
+
+  def logout
+    Session.find(context[:session_id]).destroy
+    true
+  end
 end
