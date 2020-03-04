@@ -23,4 +23,10 @@ class Types::AuthorType < Types::BaseObject
   def full_name
     ([object.first_name, object.last_name].compact).join(" ")
   end
+
+  field :errors, [Types::ErrorType], null: true
+
+  def errors
+    object.errors.map{ |e| { field_name: e, errors: object.errors[e] }}
+  end
 end

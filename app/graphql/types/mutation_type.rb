@@ -17,4 +17,12 @@ class Types::MutationType < Types::BaseObject
  end
 # field :create_author, Types::AuthorType, mutation: Mutations::CreateAuthor
 
+ field :delete_author, Boolean, null: false, description: "delete Author" do
+   argument :id, ID, required: true
+ end
+
+ def delete_author id:
+   Author.where(id: id).destroy_all
+   true
+ end
 end
